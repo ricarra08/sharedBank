@@ -26,10 +26,17 @@ public class Customer implements Serializable {
 		this.funds = funds;
 		
 	}
-	
+
+
+
+	public void setFunds(int funds) {
+		this.funds = funds;
+	}
+
+
 	public String toString() {
         return "Username: " + uname + " Password: " + pw + " First Name: " + 
-        			fname + " Last Name: " + lname;
+        			fname + " Last Name: " + lname + "Account Balances: " + funds;
 	
 	}
 	
