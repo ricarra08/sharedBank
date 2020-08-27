@@ -2,7 +2,7 @@ package bankingApp;
 
 import java.io.Serializable;
 
-public class Customer implements Serializable {
+public class Customer implements Serializable { //extend Serializable to give Application serialization functionality
 	/**
 	 * 
 	 */
@@ -10,16 +10,16 @@ public class Customer implements Serializable {
 	/**
 	 * 
 	 */
-	String uname;
+	String uname; //Customer class members
 	String pw;
 	int funds;
 	String fname;
 	String lname;
 	
-	public Customer(String fname, String lname, String uname, 
+	public Customer(String fname, String lname, String uname,  //parameterized constructor for customer
 						String pw, int funds) {
 		//super();
-		this.uname = uname;
+		this.uname = uname; //use  this to prevent variable shadowing 
 		this.pw = pw;
 		this.fname = fname;
 		this.lname= lname;
@@ -30,18 +30,18 @@ public class Customer implements Serializable {
 
 
 	public void setFunds(int funds) {
-		this.funds = funds;
+		this.funds = funds; // set funds
 	}
 
 
-	public String toString() {
+	public String toString() { // toString method overriden
         return "[USERNAME: " + uname +","+ " PASSWORD: " + pw  +","+ " FIRST NAME: " + 
-        			fname +"," + " LAST NAME: " + lname +","+ " ACCOUNT BALANCES: " +"$"+ funds 
+        			fname +"," + " LAST NAME: " + lname +","+ " ACCOUNT BALANCES: " +"$"+ funds  
         			+ "]";
 	
 	}
 	
-	public String getUN() {
+	public String getUN() { //getters and setters
 		return uname;
 	}
 	
