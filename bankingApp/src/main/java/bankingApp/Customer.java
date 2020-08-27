@@ -35,8 +35,9 @@ public class Customer implements Serializable {
 
 
 	public String toString() {
-        return "Username: " + uname + " Password: " + pw + " First Name: " + 
-        			fname + " Last Name: " + lname + "Account Balances: " + funds;
+        return "[USERNAME: " + uname +","+ " PASSWORD: " + pw  +","+ " FIRST NAME: " + 
+        			fname +"," + " LAST NAME: " + lname +","+ " ACCOUNT BALANCES: " +"$"+ funds 
+        			+ "]";
 	
 	}
 	

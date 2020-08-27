@@ -22,7 +22,7 @@ public class Application implements Serializable{
 		this.funds = funds;
 	}
 	
-	public String toString () {
+	public String toString () { //restructure application
 		return U1 + P1;
 	}
 	

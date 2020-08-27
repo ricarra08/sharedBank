@@ -75,8 +75,8 @@ public class atm {
 					System.out.println("Create Password:");
 					funds = 10;
 					String pw = s.nextLine();
-					apply.add(new Application (fname,lname,uname,pw,funds)); 
-					writeApps(apply);
+					custys.add(new Customer (fname,lname,uname,pw,funds)); 
+					writefile(custys);
 					System.out.println("Your Account Application has been submitted!");
 					sys();
 				} else if (o1.equals("b")) { 
@@ -100,23 +100,51 @@ public class atm {
 				String checkPwd = s.nextLine();
 				for (int i = 0 ; i < custList.size(); i++) {
 					if (custList.get(i).getUN().equals(checkUname) && custList.get(i).getPW().equals(checkPwd)) {
-						//Customer $4T = custList.get(i);
-						//int x = indexOf((custList.get(i));
+						
 					 System.out.println("Would you like to:" + "\n" + "a) Withdraw" + "\n" + "b) Deposit" 
 											+"\n"+ "c) Transfer");
 							String c2b = s.nextLine(); 
-							if (c2b.contentEquals("a")) {
+							if (c2b.contentEquals("a")) { //Withdraw
 								int $ = custList.get(i).get$(); //change funds to double
 								System.out.println("How much would you like to withdraw?"); 
 								int less$ = Integer.parseInt(s.nextLine()); 
 								int newF = $ - less$;
 								custList.get(i).setFunds(newF);
-								System.out.println("Remaining Balance"+custList.get(i).get$());
+								System.out.println("Remaining Balance: $"+custList.get(i).get$());
+								writefile(custList);
 								
-							} else if (c2b.equals("b")) {
-								//call deposit method
+							} else if (c2b.equals("b")) {//Depoist
+								int $ = custList.get(i).get$(); //change funds to double
+								System.out.println("How much would you like to Deposit?"); 
+								int plus$ = Integer.parseInt(s.nextLine()); 
+								int newF = $ + plus$;
+								custList.get(i).setFunds(newF);
+								System.out.println("New Balance: $"+custList.get(i).get$());
+								writefile(custList);
+								
+								
 							} else if (c2b.equals("c")){
-								//call transfer method
+								System.out.println("Enter Account Username that you will be transferring money to: ");
+								String h = s.nextLine();
+								System.out.println("Enter Account Password that you will be transferring money to: ");
+								String h1 = s.nextLine();
+									for (int t = 0; t < custList.size(); t++ ) {
+										if ((custList.get(t).getUN().equals(h) && custList.get(t).getPW().equals(h1)) && t!=i) {
+											
+											System.out.println("Transfer has begun\n" + "How much money would you like to Transfer?");
+											int m$ = Integer.parseInt(s.nextLine());
+											int newF = custList.get(i).get$() - m$;
+											custList.get(i).setFunds(newF);
+											int nf = custList.get(t).get$() + m$;
+											custList.get(t).setFunds(nf);
+											System.out.println("New Balance for 1st Account: $"+custList.get(i).get$() + "\n"
+															+	"New Balance for 2nd Account: $"+custList.get(t).get$());
+												
+										}
+									}writefile(custList);
+																	
+								
+								
 							} sys();
 						}
 					 else {
@@ -178,65 +206,108 @@ public class atm {
 			
 				System.out.println("a) View Accounts" + "\n" + "b) Edits Accounts" + "\n");
 				String d1 = s.nextLine();
-				if(d1.equals("a")) {
-					//call method made for bank admin
+				if(d1.equals("a")) { //View Accounts
+					for (int x=0; x < custList.size(); x++){
+						System.out.println(custList.get(x) + "\n");
+						sys();
+					}
+					
+					
 				} else if(d1.contentEquals("b")){
+					
 					System.out.println("Would you like to:"+ "\n" + "a) Approve/Deny Accounts" + "\n" +
 									"b) Transaction" + "\n" +"c) Delete Accounts"	);
 					String d2 = s.nextLine();
-					if(d2.equals("a")) {
-						System.out.println("Would you like to:"+ "\n" + "a) Approve Account" + "\n" +
-							"b) Deny Accounts");
-						String d2a = s.nextLine();
-						if (d2a.equals("a")) {
-							//call approve account
-							System.out.println("Account approve!");
-						} else if(d2a.equals("b")){
-							System.out.println("Account denied!");
-						}
-					} else if (d2.equals("b")) {
-						System.out.println("Would you like to:" + "\n" + "a) Withdraw" + "\n" + "b) Deposit" 
-								+"\n"+ "c) Transfer");
-						String d3a = s.nextLine(); 
-						if(d3a.contentEquals("a")) {
-							//call withdraw method
-						} else if (d3a.equals("b")) {
-							//call deposit method
-						} else if (d3a.equals("c")){
-							//call transfer method
-						}
+					
+					
+						if(d2.equals("a")) {
+							System.out.println("Would you like to:"+ "\n" + "a) Approve Account" + "\n" +
+									"b) Deny Accounts");
+							String d2a = s.nextLine();
+							if (d2a.equals("a")) {
+								//call approve account
+								System.out.println("Account approve!");
+							} else if(d2a.equals("b")){
+								System.out.println("Account denied!");
+							}
+					
+					
+					} else if (d2.equals("b")) { 
+						for (int x=0; x < custList.size(); x++){
+							System.out.println(custList.get(x) + "\n");
+						} 
+						System.out.println("Input Username of account you would like to edit");
+						String ua = s.nextLine();
+						for (int n = 0; n < custList.size(); n++) {
+							if (custList.get(n).getUN().equals(ua)) {
+								System.out.println("Would you like to:" + "\n" + "a) Withdraw" + "\n" + "b) Deposit" 
+									+"\n"+ "c) Transfer");
+								String d3a = s.nextLine(); 
+								if(d3a.contentEquals("a")) {
+									int $ = custList.get(n).get$(); 
+									System.out.println("How much would you like to withdraw?"); 
+									int less$ = Integer.parseInt(s.nextLine()); 
+									int newF = $ - less$;
+									custList.get(n).setFunds(newF);
+									System.out.println("Remaining Balance: $"+custList.get(n).get$());
+									writefile(custList);
+									sys();
+							} else if (d3a.equals("b")) {
+									int $ = custList.get(n).get$();
+									System.out.println("How much would you like to Deposit?"); 
+									int plus$ = Integer.parseInt(s.nextLine()); 
+									int newF = $ + plus$;
+									custList.get(n).setFunds(newF);
+									System.out.println("New Balance: $"+custList.get(n).get$());
+									writefile(custList);
+									sys();
+							} else if (d3a.equals("c")) {
+									System.out.println("Enter Account Username that you will be transferring money to: ");
+									String h = s.nextLine();
+									
+										for (int t = 0; t < custList.size(); t++ ) {
+											if (custList.get(t).getUN().equals(h) && n!= t ) {
+											
+												System.out.println("Transfer has begun\n" + "How much money would you like to Transfer?");
+												int m$ = Integer.parseInt(s.nextLine());
+												int newF = custList.get(n).get$() - m$;
+												custList.get(n).setFunds(newF);
+												int nf = custList.get(t).get$() + m$;
+												custList.get(t).setFunds(nf);
+												System.out.println("New Balance for 1st Account: $"+custList.get(n).get$() + "\n"
+															+	"New Balance for 2nd Account: $"+custList.get(t).get$());
+												
+										}
+									}writefile(custList);
+								sys();
+							}
+							
+							}
+							
+							}
+						
 					} else if (d2.equals("c")) {
 						System.out.println("What account would you like to delete?");
 						String d3b = s.nextLine(); 
 						System.out.println("Account has been canceled");
 					}
 				}	
-			} else {
+			 
+			 	}else {
 				System.out.println("You are not Big Daddy!");
-			}
-		}
+				sys();
+			 	}
+			 }else {
+				 System.out.println("Invalid input plzzz try again");
+				 sys();
+			 }
 		s.close();
 		
 	}
 
+
 	
-	Customer findCusty(String checkPwd) {
-		for(Customer customer : custList) {
-			if (customer.getPW().equals(checkPwd)){
-				return customer;
-			}
-		}
-		return null;
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		
 //Serialization Methods	
 	
 	public void writefile(ArrayList<Customer> custys) {
@@ -245,6 +316,7 @@ public class atm {
         	ObjectOutputStream oos = new ObjectOutputStream(fos);
         	oos.writeObject(custys);
         	System.out.println();
+        	oos.flush();
         	oos.close();
         	fos.close();
     	} 
@@ -259,6 +331,7 @@ public class atm {
 	    	ObjectOutputStream oos = new ObjectOutputStream(fos);
 	    	oos.writeObject(apply);
 	    	System.out.println();
+	    	oos.flush();
 	    	oos.close();
 	    	fos.close();
 		} 
